@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+<!-- URLのタイトル表示 -->
+{% block title %}ホームページ{% endblock %}
+
+{% block content %}
+<form action="/result" method="POST">
+    <p>検索：<input type="text" name="item"></p>
+    <p><input type="submit" value="検索"></p>
+</form>
+{% endblock %}
