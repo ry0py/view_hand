@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import cv2
 from ultralytics import YOLO
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder='./templates/images')
 
 @app.route('/')
 def janken():
@@ -19,17 +19,21 @@ def sample():
     boxes = results[0].boxes
     names = results[0].names
     if boxes.cls.numel() == 0:
-        return "手が検出されませんでした"
+        answer = "手が検出されませんでした"
+        return render_template("result_none.html", answer=answer)
     else:
         names.get(int(boxes.cls))
         cls_text = names.get(int(boxes.cls))
         if(cls_text == "paper"):
-            return "チョキ"
+            answer = "チョキ"
+            return render_template("result_scissors.html", answer=answer)
         if(cls_text == "rock"):
-            return "パー"
+            answer = "パー"
+            return render_template("result_paper.html", answer=answer)
         if(cls_text == "scissors"):
-            return "グー"
-        '''
+            answer = "グー"
+            return render_template("result_rock.html", answer=answer)
+'''
         if boxes.cls.size() == 1:
             names.get(int(boxes.cls))
             cls_text = names.get(int(boxes.cls))
@@ -41,8 +45,8 @@ def sample():
                 return "グー"
         else:
             return "手が二つあります"
-            '''
-    '''
+
+
     if(not( names.get(boxes) == None)):
         cls_text = names.get(int(boxes))
         if(cls_text == "paper"):
