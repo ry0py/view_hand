@@ -9,6 +9,7 @@ def janken():
 @app.route('/sampleform-post', methods=['Get','POST'])
 def sample():
     print('POSTデータ受け取ったので処理します')
+    dh.DecideAIHand()
     if dh.DecideAIHand() == "チョキ":
         return "チョキ"
     elif dh.DecideAIHand() == "パー":
@@ -16,7 +17,9 @@ def sample():
     elif dh.DecideAIHand() == "グー":
         return "グー"
     else:
-        return "None"
+        hand_num = dh.CountHandNum()
+        return "手が" + str(hand_num) + "つあります"
+    
     '''
     if(not( names.get(boxes) == None)):
         cls_text = names.get(int(boxes))

@@ -1,35 +1,36 @@
 import cv2
 from ultralytics import YOLO
 
+
 class DecideHand:
-    def Detect(self): #->torch.Tensor
+
+    def Detect(self)->None:  # ->torch.Tensor
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
         model = YOLO("./runs/detect/train3/weights/best.pt")
         results = model(frame)
-        return results[0]
-    def GetBoxes(self):#->torch.Tensor
-        return self.Detect().boxes
-    def GetNames(self):#->torch.Tensor
-        return self.Detect().names
-    def IsDetect(self)->bool: #検出できてるか判断したいだけなのに検出の処理もしてしまって重くなってそう
-        if self.GetBoxes().cls.numel() == 1:
+        self.names = results[0].names
+        self.boxes = results[0].boxes
+        cap.release()
+
+    def IsDetect(self) -> bool:  # 検出できてるか判断したいだけなのに検出の処理もしてしまって重くなってそう
+        if self.boxes.cls.numel() == 1:
             return True
         else:
             return False
-    def CountHandNum(self)->int:
-        return self.GetBoxes().cls.numel()
-    def GetHand(self)->str:
-        return self.DecideHand()
-    def DecideViewHand(self)->str:
-        names = self.GetNames()
-        boxes = self.GetBoxes()
+
+    def CountHandNum(self) -> int:
+        return self.boxes.cls.numel()
+
+    def DecideViewHand(self) -> str:
+        self.Detect()
         if self.IsDetect() == False:
             return "None"
         else:
-            cls_text = self.Detect().names.get(int(self.Detect.boxes.cls))
+            cls_text = self.names.get(int(self.boxes.cls))
             return cls_text
-    def DecideAIHand(self)->str: #こいつを使えばいい
+
+    def DecideAIHand(self) -> str:  # こいつを使えばいい
         cls_text = self.DecideViewHand()
         if(cls_text == "paper"):
             return "チョキ"
@@ -38,7 +39,6 @@ class DecideHand:
         if(cls_text == "scissors"):
             return "グー"
         if(cls_text == "None"):
-            #return "None"
             hand_num = self.CountHandNum()
             return "手が" + str(hand_num) + "つあります"
         '''
