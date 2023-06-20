@@ -1,0 +1,9 @@
+train: C:\Users\ryopp\hobby\view_hand\data\train
+val: C:\Users\ryopp\hobby\view_hand\data\val
+test: C:\Users\ryopp\hobby\view_hand\data\test
+
+# number of classes
+nc: 3
+
+# class names
+names: ['scissors', 'rock', 'paper']
