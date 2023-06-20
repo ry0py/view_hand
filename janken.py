@@ -9,17 +9,17 @@ def janken():
 @app.route('/sampleform-post', methods=['Get','POST'])
 def sample():
     print('POSTデータ受け取ったので処理します')
-    if dh.DecideAIHand(battle = "win") == "チョキ":
-        answer = "チョキ"
-        return render_template("result_scissors.html", answer=answer)
-    elif dh.DecideAIHand(battle = "win") == "パー":
-        answer = "パー"
-        return render_template("result_paper.html", answer=answer)
-    elif dh.DecideAIHand(battle = "win") == "グー":
-        answer = "グー"
-        return render_template("result_rock.html", answer=answer)
+    hand = dh.DecideAIHand(battle = "win")
+    #dh.ViewHandImage()
+    hand_num = dh.CountHandNum()
+    if(hand_num == 1):
+        if hand == "チョキ":
+            return render_template("result_scissors.html", answer=hand)
+        elif hand == "パー":
+            return render_template("result_paper.html", answer=hand)
+        elif hand == "グー":
+            return render_template("result_rock.html", answer=hand)            
     else:
-        hand_num = dh.CountHandNum()
         answer = "手が" + str(hand_num) + "つあります"
         return render_template("result_none.html", answer=answer)
     

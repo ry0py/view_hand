@@ -8,17 +8,24 @@ cap = cv2.VideoCapture(0)
 #frameには画像が入る
 ret, frame = cap.read()
 
-results = model(frame,show =True)  # frameでも検出してくれる
+results = model(frame,show =True)  # frameで検出してくれる
 masks = results[0].masks  # Masks object
 
 # 以下3つでラベルを取得できる
 names = results[0].names
 boxes = results[0].boxes
+images = results[0].path
 #boxes.clsはTensor型というもの
 '''
 numel()は要素数を返す
 size()は行列のサイズを返す
 '''
+# while True:
+#     #cv2.imshow("frame",images)
+#     if(cv2.waitKey(1) & 0xFF == ord("q")):
+#         break
+print(images)
+image = cv2.imread(images[0])
 if boxes.cls.numel() == 0:
     print(boxes.cls)
 else:

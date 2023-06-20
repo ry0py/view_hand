@@ -4,13 +4,18 @@ import random
 
 
 class DecideHand:
+    def __init__(self):
+        self.names = None
+        self.boxes = None
+        self.cls_text = None
     def Detect(self)->None:  # ->torch.Tensor
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
         model = YOLO("./runs/detect/train2/weights/best.pt")
-        results = model(frame, save=True)
+        results = model(frame)
         self.names = results[0].names
         self.boxes = results[0].boxes
+        self.result_path = results[0].path
         cap.release()
 
     def IsDetect(self) -> bool:  # 検出できてるか判断したいだけなのに検出の処理もしてしまって重くなってそう
@@ -28,6 +33,8 @@ class DecideHand:
            self.cls_text = self.names.get(int(self.boxes.cls))
         else:
             self.cls_text = "None"
+    def ViewHandImage(self) -> None:
+        cv2.imshow("frame", self.result_path[0])
 
     def Win(self)->str:
         if(self.cls_text == "paper"):
@@ -70,7 +77,7 @@ class DecideHand:
         else:
             return "None"
 
-    def DecideAIHand(self,battle) -> str:  # こいつを使えばいい
+    def DecideAIHand(self,battle = "win") -> str:  # こいつを使えばいい
         self.DecideViewHand()
         if(battle == "win"):
             return self.Win()
