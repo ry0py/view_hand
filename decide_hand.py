@@ -1,6 +1,7 @@
 import cv2
 from ultralytics import YOLO
 import random
+from typing import Tuple
 
 
 class DecideHand:
@@ -12,7 +13,7 @@ class DecideHand:
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
         model = YOLO("./runs/detect/train2/weights/best.pt")
-        results = model(frame)
+        results = model(frame,show = True)
         self.names = results[0].names
         self.boxes = results[0].boxes
         self.result_path = results[0].path
@@ -36,35 +37,35 @@ class DecideHand:
     def ViewHandImage(self) -> None:
         cv2.imshow("frame", self.result_path[0])
 
-    def Win(self)->str:
+    def Win(self)->Tuple[str,str]:
         if(self.cls_text == "paper"):
-            return "チョキ"
+            return "チョキ","./templates/images/scissors.png"
         elif(self.cls_text == "rock"):
-            return "パー"
+            return "パー","./templates/images/paper.png"
         elif(self.cls_text == "scissors"):
-            return "グー"
+            return "グー","./templates/images/rock.png"
         else:
-            return "None"
+            return "None", "./templates/images/error.png"
     
-    def Lose(self)->str:
+    def Lose(self)->Tuple[str,str]:
         if(self.cls_text == "paper"):
-            return "グー"
+            return "グー","./templates/images/rock.png"
         elif(self.cls_text == "rock"):
-            return "チョキ"
+            return "チョキ","./templates/images/scissors.png"
         elif(self.cls_text == "scissors"):
-            return "パー"
+            return "パー", "./templates/images/paper.png"
         else:
-            return "None"
+            return "None", "./templates/images/error.png"
     
-    def Draw(self)->str:
+    def Draw(self)->Tuple[str,str]:
         if(self.cls_text == "paper"):
-            return "パー"
+            return "パー","./templates/images/paper.png"
         elif(self.cls_text == "rock"):
-            return "グー"
+            return "グー","./templates/images/rock.png"
         elif(self.cls_text == "scissors"):
-            return "チョキ"
+            return "チョキ","./templates/images/scissors.png"
         else:
-            return "None"
+            return "None", "./templates/images/error.png"
     
     def Random(self)->str:
         random_hand = random.randrange(3)
@@ -77,7 +78,7 @@ class DecideHand:
         else:
             return "None"
 
-    def DecideAIHand(self,battle = "win") -> str:  # こいつを使えばいい
+    def DecideAIHand(self,battle = "win") -> Tuple[str,str]:  # こいつを使えばいい
         self.DecideViewHand()
         if(battle == "win"):
             return self.Win()
