@@ -1,6 +1,14 @@
 import tkinter as tk
 from decide_hand import DecideHand #本当はDecideAIHandのみを使いたい
 from PIL import ImageTk
+from ultralytics import YOLO
+import cv2
+import sys
+import os
+
+import os
+# 実行ファイルと同じディレクトリから相対パスでファイルを取得する例
+file_path = os.path.join(os.path.dirname(__file__), 'ultralytics/yolo/cfg/default.yaml')
 dh = DecideHand()
 
 class win(tk.Frame):
