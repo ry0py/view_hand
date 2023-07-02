@@ -13,5 +13,5 @@ pip install の後ろに以下のものを書いてpowershellで実行
 
 # .exeの方法
 - まだこのやり方ではうまくいってない
-``` pip install pyinstaller ```
-''' pyinstaller --noconsole --onefile ./janken_desktop.py```
+- ``` pip install pyinstaller ```
+- ``` pyinstaller --noconsole --onefile ./janken_desktop.py```
