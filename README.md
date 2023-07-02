@@ -10,3 +10,7 @@ pip install の後ろに以下のものを書いてpowershellで実行
 2. ```cd view_hand```
 3. ```python janken_desktop.py```を実行
 4. これでできなかったら教えて
+
+# .exeの方法
+- まだこのやり方ではうまくいってない
+- ''' pyinstaller --noconsole --onefile ./janken_desktop.py```
