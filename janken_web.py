@@ -13,11 +13,11 @@ def sample():
     #dh.ViewHandImage()
     hand_num = dh.CountHandNum()
     if(hand_num == 1):
-        if hand == "チョキ":
+        if hand == "scissors":
             return render_template("result_scissors.html", answer=hand)
-        elif hand == "パー":
+        elif hand == "paper":
             return render_template("result_paper.html", answer=hand)
-        elif hand == "グー":
+        elif hand == "rock":
             return render_template("result_rock.html", answer=hand)            
     else:
         answer = "手が" + str(hand_num) + "つあります"
@@ -27,11 +27,11 @@ def sample():
     if(not( names.get(boxes) == None)):
         cls_text = names.get(int(boxes))
         if(cls_text == "paper"):
-            return "チョキ"
+            return "scissors"
         if(cls_text == "rock"):
-            return "パー"
+            return "paper"
         if(cls_text == "scissors"):
-            return "グー"
+            return "rock"
     else:
         return "None"
     '''
