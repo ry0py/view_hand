@@ -26,16 +26,17 @@ class win(tk.Frame):
         button_win.pack(padx=30, pady=50)
         button_draw = tk.Button( text='以心伝心', command=self.getwin_draw)
         button_draw.pack(padx=30, pady=50)
-        self.ser = serial.Serial('COM3',9600)
+        self.ser = serial.Serial('COM12',9600)
     def send_serial(self,hand):
         if hand == "scissors":
-            self.ser.write(b'scissors')
+            self.ser.write(bytes('scissor\n',encoding='ascii'))
             print("scissors")
         elif hand == "paper":
-            self.ser.write(b'paper')
+            self.ser.write(bytes('paper\n',encoding='ascii'))
             print("paper")
         elif hand == "rock":
-            self.ser.write(b'rock')
+            print(bytes('rock',encoding = 'ascii'))
+            self.ser.write(bytes('rock\n',encoding='ascii'))
             print("rock")
         elif hand == "None":
             self.ser.write(b'None')
