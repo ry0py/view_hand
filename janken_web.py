@@ -9,7 +9,7 @@ def janken():
 @app.route('/sampleform-post', methods=['Get','POST'])
 def sample():
     print('POSTデータ受け取ったので処理します')
-    hand = dh.DecideAIHand(battle = "win")
+    hand = dh.DecideAIHand(battle = "win")[0]
     #dh.ViewHandImage()
     hand_num = dh.CountHandNum()
     if(hand_num == 1):

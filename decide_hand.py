@@ -2,6 +2,7 @@ import cv2
 from ultralytics import YOLO
 import random
 from typing import Tuple
+import time 
 
 
 class DecideHand:
@@ -12,7 +13,7 @@ class DecideHand:
     def Detect(self)->None:  # ->torch.Tensor
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
-        model = YOLO("./runs/detect/train2/weights/best.pt")
+        model = YOLO("./runs/detect/train3/weights/best.pt")
         results = model(frame,show = True)
         self.names = results[0].names
         self.boxes = results[0].boxes
@@ -78,6 +79,7 @@ class DecideHand:
         else:
             return "None"
 
+    # これを呼ぶだけでいい
     def DecideAIHand(self,battle = "win") -> Tuple[str,str]:  # こいつを使えばいい
         self.DecideViewHand()
         if(battle == "win"):
@@ -103,3 +105,11 @@ class DecideHand:
         else:
             return "手が二つあります"
             '''
+def main():
+    start_time = time.time()
+    dh = DecideHand()
+    print("DecideHand time: ", time.time() - start_time) # 0
+    print(dh.DecideAIHand(battle = "win")) #ここが少し時間がかかる
+    print("DecideHand time_after: ", time.time() - start_time) # 2.0
+if __name__ == "__main__":
+    main()
