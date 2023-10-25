@@ -1,14 +1,14 @@
 import tkinter as tk
-from decide_hand import DecideHand #本当はDecideAIHandのみを使いたい
+from decide_hand import DecideHand 
 from PIL import ImageTk
-from ultralytics import YOLO
+import serial
+
+# いらないかも
 import cv2
 import sys
 import os
 
 import os
-# 実行ファイルと同じディレクトリから相対パスでファイルを取得する例
-file_path = os.path.join(os.path.dirname(__file__), 'ultralytics/yolo/cfg/default.yaml')
 dh = DecideHand()
 
 class win(tk.Frame):
@@ -26,13 +26,28 @@ class win(tk.Frame):
         button_win.pack(padx=30, pady=50)
         button_draw = tk.Button( text='以心伝心', command=self.getwin_draw)
         button_draw.pack(padx=30, pady=50)
-
+        self.ser = serial.Serial('COM12',9600)
+    def send_serial(self,hand):
+        if hand == "scissors":
+            self.ser.write(bytes('scissor\n',encoding='ascii'))
+            print("scissors")
+        elif hand == "paper":
+            self.ser.write(bytes('paper\n',encoding='ascii'))
+            print("paper")
+        elif hand == "rock":
+            print(bytes('rock',encoding = 'ascii'))
+            self.ser.write(bytes('rock\n',encoding='ascii'))
+            print("rock")
+        elif hand == "None":
+            self.ser.write(b'None')
+            print("None")
     def getwin_lose(self):
         subWindow = tk.Toplevel(self.master)
         subWindow.title('お前の勝ち') # 画面タイトル設定
         subWindow.geometry('500x500')  # 画面サイズ設定
         subWindow.resizable(False, False) # リサイズ設定
         janken=dh.DecideAIHand(battle="lose")
+        self.send_serial(janken[0])
         if(janken[0]=="None"):
             text = "ちゃんと出せやボケが！！！"
         else:
@@ -59,6 +74,7 @@ class win(tk.Frame):
         subWindow.geometry('500x500')  # 画面サイズ設定
         subWindow.resizable(False, False) # リサイズ設定
         janken = dh.DecideAIHand(battle="win")
+        self.send_serial(janken[0])
         if(janken[0]=="None"):
             text = "ちゃんと出せやボケが！！！"
         else:
@@ -85,6 +101,7 @@ class win(tk.Frame):
         subWindow.geometry('500x500')  # 画面サイズ設定
         subWindow.resizable(False, False) # リサイズ設定
         janken = dh.DecideAIHand(battle="draw")
+        self.send_serial(janken[0])
         if(janken[0]=="None"):
             text = "ちゃんと出せやボケが！！！"
         else:
