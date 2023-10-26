@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import cv2
 # Load a model
 
-model = YOLO("./runs/detect/train3/weights/best.pt")  # インスタンスを生成してる(C++のインスタンスの生成とはやり方が違う) 
+model = YOLO("./runs/detect/train2/weights/best.pt")  # インスタンスを生成してる(C++のインスタンスの生成とはやり方が違う) 
 # Use the model
 
 results = model("./data/test/S__44785668.jpg",show = True)# predict on an image フォルダ形式じゃないといけない&\には対応してないからエラー出るから気を付けて

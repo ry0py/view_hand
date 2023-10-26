@@ -1,4 +1,4 @@
 from ultralytics import YOLO
 # Train the model
-model = YOLO('yolov8n.pt')
-model.train(data='./data/hand.yaml', epochs=3)
+model = YOLO('./runs/detect/train2/weights/best.pt')
+model.train(data='./data/hand.yaml', epochs=100)
