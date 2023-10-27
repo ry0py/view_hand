@@ -29,17 +29,17 @@ class win(tk.Frame):
         self.ser = serial.Serial('COM12',9600)
     def send_serial(self,hand):
         if hand == "scissors":
-            self.ser.write(bytes('scissor\n',encoding='ascii'))
+            # self.ser.write(bytes('scissors\n',encoding='ascii'))
             print("scissors")
         elif hand == "paper":
-            self.ser.write(bytes('paper\n',encoding='ascii'))
+            # self.ser.write(bytes('paper\n',encoding='ascii'))
             print("paper")
         elif hand == "rock":
             print(bytes('rock',encoding = 'ascii'))
-            self.ser.write(bytes('rock\n',encoding='ascii'))
+            # self.ser.write(bytes('rock\n',encoding='ascii'))
             print("rock")
         elif hand == "None":
-            self.ser.write(b'None')
+            # self.ser.write(b'None')
             print("None")
     def getwin_lose(self):
         subWindow = tk.Toplevel(self.master)

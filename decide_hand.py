@@ -12,9 +12,9 @@ class DecideHand:
         self.names = None
         self.boxes = None
         self.cls_text = None
-        self.model = YOLO("./runs/detect/train2/weights/best.pt")
+        self.model = YOLO("./runs/detect/train4/weights/best.pt")
     def Detect(self)->None:  # ->torch.Tensor
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(1)
         ret, frame =self.cap.read()
         results = self.model.predict(frame,show = True,conf = 0.5) # 閾値を設定
         self.names = results[0].names
@@ -39,7 +39,8 @@ class DecideHand:
     def DecideViewHand(self) -> None:
         self.Detect()
         if self.IsDetect():
-           self.cls_text = self.names.get(int(self.boxes.cls))
+           print(self.boxes.cls)
+           self.cls_text = self.names.get(int(self.boxes.cls[0]))
         else:
             self.cls_text = "None"
     def ViewHandImage(self) -> None:
