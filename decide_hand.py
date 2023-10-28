@@ -54,7 +54,7 @@ class DecideHand:
         elif(self.cls_text == "scissors"):
             return "rock","./templates/images/rock.png"
         else:
-            return "None", "./templates/images/error.png"
+            return "None", "./templates/images/error.jpg"
     
     def Lose(self)->Tuple[str,str]:
         if(self.cls_text == "paper"):
@@ -64,7 +64,7 @@ class DecideHand:
         elif(self.cls_text == "scissors"):
             return "paper", "./templates/images/paper.png"
         else:
-            return "None", "./templates/images/error.png"
+            return "None", "./templates/images/error.jpg"
     
     def Draw(self)->Tuple[str,str]:
         if(self.cls_text == "paper"):
@@ -74,7 +74,7 @@ class DecideHand:
         elif(self.cls_text == "scissors"):
             return "scissors","./templates/images/scissors.png"
         else:
-            return "None", "./templates/images/error.png"
+            return "None", "./templates/images/error.jpg"
     
     def Random(self)->str:
         random_hand = random.randrange(3)
