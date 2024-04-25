@@ -14,7 +14,7 @@ class DecideHand:
         self.cls_text = None
         self.model = YOLO("./runs/detect/train4/weights/best.pt")
     def Detect(self)->None:  # ->torch.Tensor
-        self.cap = cv2.VideoCapture(1)
+        self.cap = cv2.VideoCapture(0)
         ret, frame =self.cap.read()
         results = self.model.predict(frame,show = True,conf = 0.5) # 閾値を設定
         self.names = results[0].names

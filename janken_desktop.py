@@ -69,6 +69,7 @@ class win(tk.Frame):
             # image=ImageTk.PhotoImage(file="tmp.png"),  # こうするとうまくいかない。
             anchor=tk.NW
         )
+        self.master.after(5000,subWindow.destroy)
     def getwin_win(self):
         subWindow = tk.Toplevel(self.master)
         subWindow.title('俺の負け') # 画面タイトル設定
@@ -96,6 +97,7 @@ class win(tk.Frame):
             # image=ImageTk.PhotoImage(file="tmp.png"),  # こうするとうまくいかない。
             anchor=tk.NW
         )
+        self.master.after(5000,subWindow.destroy)
     def getwin_draw(self):
         subWindow = tk.Toplevel(self.master)
         subWindow.title('以心伝心') # 画面タイトル設定
@@ -124,6 +126,7 @@ class win(tk.Frame):
             # image=ImageTk.PhotoImage(file="tmp.png"),  # こうするとうまくいかない。
             anchor=tk.NW
         )
+        self.master.after(5000,subWindow.destroy)
 if __name__ == '__main__':
     root = tk.Tk()
     win1 = win(master=root)
